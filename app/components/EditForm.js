@@ -3,7 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
-import { updateTask } from "../services/apiTasks";
+import { getTaskById, updateTask } from "../services/apiTasks";
 import toast from "react-hot-toast";
 
 const EditForm = () => {
@@ -12,14 +12,11 @@ const EditForm = () => {
     description: "",
     status: "",
   });
+  const [isLoading,setIsLoading]=useState(false)
   const [id, setId] = useState(0);
   const navigate = useRouter();
   const { push } = navigate;
   const params = useParams();
-
-  useEffect(() => {
-    setId(params?.Id);
-  }, [params]);
 
   // Handle input change
   const handleInputChange = (e) => {
@@ -53,6 +50,38 @@ const EditForm = () => {
     push("/");
   }
 
+  useEffect(() => {
+    if (!id) return;
+    const fetchData = async () => {
+      try {
+        setIsLoading(true)
+        const fetchedData = await getTaskById(id);
+        
+        const newObj = {
+          title: fetchedData?.title,
+          description: fetchedData?.description,
+          status: fetchedData?.status,
+        };
+        setFormData(newObj);
+      } catch (error) {
+        toast.error(`Failed to view the task: ${error.message}`);
+      }
+      finally{
+        setIsLoading(false)
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  useEffect(() => {
+    setId(params?.Id);
+  }, [params]);
+
+  if (isLoading){
+    return <div className="h-screen w-screen flex justify-center items-center">Loading...</div>
+
+  }
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg w-[500px] p-6">
@@ -67,7 +96,6 @@ const EditForm = () => {
           {[
             { label: "Title", name: "title" },
             { label: "Description", name: "description" },
-            { label: "Status", name: "status" },
           ].map((field, idx) => (
             <div key={idx} className="flex items-center mt-4">
               <label className="w-2/5 font-medium">{field.label}</label>
@@ -80,6 +108,26 @@ const EditForm = () => {
               />
             </div>
           ))}
+
+          <div className="flex justify-between items-center mt-4">
+            <label
+              htmlFor="status"
+              className="w-2/5 font-medium"
+            >
+              Status
+            </label>
+            <select
+              id="status"
+              name="status"
+              value={formData.status}
+              onChange={handleInputChange}
+               className="w-3/5 p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+            >
+              <option value="pending">Pending</option>
+              <option value="in-progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
 
           <footer className="flex justify-between mt-6">
             <button
