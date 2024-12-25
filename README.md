@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+Task Management API
 
-First, run the development server:
+The Task Management API is a backend application built with Next.js and Supabase. It allows users to manage tasks efficiently by performing CRUD (Create, Read, Update, Delete) operations. The API is designed with robust error handling, data validation.
+
+
+
+Environment Variables
+
+To run this project, you need to add the following environment variables to your .env.local file in the project root:
+
+
+
+NEXT_PUBLIC_SUPABASE_URL="https://teepjgjbsxwyorynzvbb.supabase.co";
+NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRlZXBqZ2pic3h3eW9yeW56dmJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ5NDg3NjMsImV4cCI6MjA1MDUyNDc2M30.g5tdyawfFg_8qJxeXwbE0ImdhZ_ifRxHXLfQbtYWXdY";
+
+## Run Locally
+
+Clone the project
+https://github.com/rakesh-jaiswal23/task-management-api.git
+
+Go to the project directory
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  cd my-project
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Install dependencies
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+  npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Start the server
 
-## Learn More
+```bash
+  npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Running Tests
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To run tests, run the following command
 
-## Deploy on Vercel
+```bash
+  npm run test
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+To deploy this project run
+
+```bash
+  npm run deploy
+```
